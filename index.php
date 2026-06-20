@@ -8,13 +8,17 @@ $consumerKey    = trim('CMadUmISBbs7dXIUYgPoeP1vSD3JHzAraYtUGSiHGHzYsNf2');
 $consumerSecret = trim('M4TmxaNtELzQV3KOUGb1Np6bjPENKpccZV4Ziyg2EKRtWBfG8VASbEoisVDLwqXJ'); 
 $passkey        = trim('bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'); 
 
-// 2. TRANSACTION DETAILS
+// 2. TRANSACTION DETAILS (DYNAMIC ROUTER INPUT WITH TESTING FALLBACKS)
 $businessShortCode = '174379'; 
-$amount            = '1';      
-$partyA            = '254797688007'; 
 $partyB            = '174379';
-$phoneNumber       = $partyA;
 $timestamp         = date('YmdHis');
+
+// Grab the phone number from the router URL parameter; if missing, use your number for testing
+$partyA            = isset($_GET['phone']) ? trim($_GET['phone']) : '254797688007'; 
+// Grab the amount from the router URL parameter; if missing, default to 1 Shilling for testing
+$amount            = isset($_GET['amount']) ? trim($_GET['amount']) : '1';      
+
+$phoneNumber       = $partyA;
 
 // 3. GENERATE LIPA NA M-PESA PASSWORD
 $password = base64_encode($businessShortCode . $passkey . $timestamp);
