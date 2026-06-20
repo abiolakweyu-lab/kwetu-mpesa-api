@@ -3,9 +3,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// 1. SAFARICOM DARAJA CREDENTIALS (TRIMMED & SANITIZED)
+// 1. SAFARICOM DARAJA CREDENTIALS (EXACT MATCH & SANITIZED)
 $consumerKey    = trim('CMadUmISBbs7dXIUYgPoeP1vSD3JHzAraYtUGSiHGHzYsNf2'); 
-$consumerSecret = trim('M4TmxanTeLZQV3KOUGb1Np6bjPENKpccZV4Ziyg2EKRtWBfG8VASbEoisVDLwqXJ'); 
+$consumerSecret = trim('M4TmxaNtELzQV3KOUGb1Np6bjPENKpccZV4Ziyg2EKRtWBfG8VASbEoisVDLwqXJ'); 
 $passkey        = trim('bfb2a54f3a3c1c57a9e3d3ff346550df4714db5328766431b5fb8b4303c4b964'); 
 
 // 2. TRANSACTION DETAILS
@@ -42,10 +42,8 @@ if (curl_errno($curl)) {
     $error_msg = curl_error($curl);
     die("cURL Diagnostic Error: " . $error_msg);
 }
-
 curl_close($curl);
 
-// Output raw response if json decoding fails
 $jsonResult = json_decode($result);
 $accessToken = $jsonResult->access_token ?? null;
 
