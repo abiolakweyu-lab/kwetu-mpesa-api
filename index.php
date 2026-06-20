@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// 1. SAFARICOM DARAJA CREDENTIALS (SANDBOX)
+// 1. SAFARICOM DARAJA CREDENTIALS (SANDBOX) - SANITIZED
 $consumerKey    = 'CMadUmISBbs7dXIUYgPoeP1vSD3JHzAraYtUGSiHGHzYsNf2'; 
 $consumerSecret = 'M4TmxanTeLZQV3KOUGb1Np6bjPENKpccZV4Ziyg2EKRtWBfG8VASbEoisVDLwqXJ'; 
 $passkey        = 'bfb2a54f3a3c1c57a9e3d3ff346550df4714db5328766431b5fb8b4303c4b964'; 
@@ -19,7 +19,7 @@ $timestamp         = date('YmdHis');
 // 3. GENERATE LIPA NA M-PESA PASSWORD
 $password = base64_encode($businessShortCode . $passkey . $timestamp);
 
-// 4. GENERATE ACCESS TOKEN FROM SAFARICOM (WITH DETAILED ERROR LOGGING)
+// 4. GENERATE ACCESS TOKEN FROM SAFARICOM
 $url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
 $authCredentials = base64_encode($consumerKey . ':' . $consumerSecret);
 
@@ -34,22 +34,21 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($curl, CURLOPT_HEADER, FALSE);
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE); 
-curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE); // Added for extra bypass
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE); 
 
 $result = curl_exec($curl);
 
-// CHECK FOR NATIVE CURL ERRORS
 if (curl_errno($curl)) {
     $error_msg = curl_error($curl);
     die("cURL Diagnostic Error: " . $error_msg);
 }
 
-$result = json_decode($result);
-$accessToken = $result->access_token ?? null;
+$jsonResult = json_decode($result);
+$accessToken = $jsonResult->access_token ?? null;
 curl_close($curl);
 
 if (!$accessToken) {
-    die("Error: Token generation failed. Server response: " . json_encode($result));
+    die("Error: Token generation failed. Server response: " . $result);
 }
 
 // 5. INITIATE M-PESA EXPRESS STK PUSH
