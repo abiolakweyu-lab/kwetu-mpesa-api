@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 // 1. SAFARICOM DARAJA CREDENTIALS (EXACT MATCH & SANITIZED)
 $consumerKey    = trim('CMadUmISBbs7dXIUYgPoeP1vSD3JHzAraYtUGSiHGHzYsNf2'); 
 $consumerSecret = trim('M4TmxaNtELzQV3KOUGb1Np6bjPENKpccZV4Ziyg2EKRtWBfG8VASbEoisVDLwqXJ'); 
-$passkey        = trim('bfb2a54f3a3c1c57a9e3d3ff346550df4714db5328766431b5fb8b4303c4b964'); 
+$passkey        = trim('bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'); 
 
 // 2. TRANSACTION DETAILS
 $businessShortCode = '174379'; 
